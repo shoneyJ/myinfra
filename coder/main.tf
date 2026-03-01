@@ -27,8 +27,8 @@ resource "coder_agent" "main" {
   arch           = data.coder_provisioner.me.arch
   os             = "linux"
   startup_script = <<-EOT
-    # Authenticate with Coder
-    coder login ${data.coder_workspace.me.access_url} --token ${coder_agent.main.token}
+    # Authenticate with Coder using the agent token from env
+    coder login ${data.coder_workspace.me.access_url} --token $CODER_AGENT_TOKEN
 
     # Verify claude code is available
     claude --version
